@@ -2,8 +2,11 @@ FROM jlesage/baseimage-gui:ubuntu-20.04
 
 COPY startapp.sh /startapp.sh
 
+# tixati install has troubles if front end not set
+ENV DEBIAN_FRONTEND noninteractive
+
 # no idea why, but xterm makes it work!
-RUN add-pkg xterm openvpn curl
+RUN add-pkg xterm curl
 
 # download tixati, since not in any repo anywhere
 RUN curl --silent --output /var/tmp/tixati.deb https://download2.tixati.com/download/tixati_2.88-1_amd64.deb
