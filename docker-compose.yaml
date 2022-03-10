@@ -17,8 +17,14 @@ services:
       NVIDIA_DRIVER_CAPABILITIES: compute,video,utility
       NVIDIA_VISIBLE_DEVICES: all
       CUDA_DRIVER_CAPABILITIES: compute,video,utility
-      runtime: nvidia
-      gpus: all,capabilities=video
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
 
   vpn:
     image: dperson/openvpn-client
