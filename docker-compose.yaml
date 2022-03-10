@@ -6,7 +6,7 @@ services:
     container_name: plex
     volumes:
       - /pvr/plex/config:/config
-      - /pvr/plex/transcode:/transcode
+      - /dev/shm/transcode:/transcode
       - /pvr/plex/data:/data
     network_mode: host
     restart: always
