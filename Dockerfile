@@ -1,4 +1,3 @@
-# FROM jlesage/baseimage-gui:alpine-3.15
 FROM jlesage/baseimage-gui:ubuntu-20.04
 
 COPY startapp.sh /startapp.sh
@@ -26,10 +25,6 @@ sed-patch \
 	's/<application type="normal">/<application type="normal" title="Tixati v2.88">/' \
 	/etc/xdg/openbox/rc.xml
 
-HEALTHCHECK CMD /usr/bin/curl \
-	--fail \
-	--insecure \
-	--output /dev/null \
-	--silent \
-	https://localhost:5800 || exit 1
+# This healthcheck will kill tixati if the tunnel is not running, which will force a restart of the container
+HEALTHCHECK CMD /usr/sbin/ip addr show dev tun0 || /usr/bin/tixati -closenow
 

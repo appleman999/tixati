@@ -1,0 +1,57 @@
+# Before running, go to https://www.plex.tv/claim and PLEX_CLAIM=claim-...
+
+services:
+  plex:
+    image: plexinc/pms-docker
+    container_name: plex
+    volumes:
+      - /pvr/plex/config:/config
+      - /pvr/plex/transcode:/transcode
+      - /pvr/plex/data:/data
+    network_mode: host
+    restart: always
+    environment:
+      TZ: America/New_York
+      PLEX_UID: 1000
+      PLEX_GID: 1000
+      NVIDIA_DRIVER_CAPABILITIES: compute,video,utility
+      NVIDIA_VISIBLE_DEVICES: all
+      CUDA_DRIVER_CAPABILITIES: compute,video,utility
+      runtime: nvidia
+      gpus: all,capabilities=video
+
+  vpn:
+    image: dperson/openvpn-client
+    container_name: vpn
+    ports:
+      - 5800:5800
+      - 5900:5900
+    volumes:
+      - /pvr/openvpn:/vpn
+    environment:
+      TZ: America/New_York
+      FIREWALL: ""
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    restart: always
+
+  tixati:
+    image: appleman999/tixati:latest
+    container_name: tixati
+    depends_on:
+      - vpn
+    restart: always
+    environment:
+      TZ: America/New_York
+      DISPLAY_WIDTH: 1500
+      DISPLAY_HEIGHT: 1000
+      SECURE_CONNECTION: 1
+#     KEEP_APP_RUNNING: 1
+    volumes:
+      - /pvr/tixati/config:/config
+      - /pvr/plex/data:/plex
+      - /pvr/tixati/torrents:/torrents
+    network_mode: service:vpn
+
