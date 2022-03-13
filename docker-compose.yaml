@@ -53,7 +53,6 @@ services:
       TZ: America/New_York
       DISPLAY_WIDTH: 1500
       DISPLAY_HEIGHT: 1000
-      SECURE_CONNECTION: 1
     volumes:
       - /pvr/tixati/config:/config
       - /pvr/plex/data:/plex
