@@ -18,11 +18,11 @@ RUN add-pkg xterm \
 	gconf2 && \
 curl \
 	--silent \
-	--output /var/tmp/tixati.deb https://download2.tixati.com/download/tixati_2.88-1_amd64.deb && \
+	--output /var/tmp/tixati.deb https://download2.tixati.com/download/tixati_2.89-1_amd64.deb && \
 export TERM=vt100 && \
 add-pkg /var/tmp/tixati.deb && \
 sed-patch \
-	's/<application type="normal">/<application type="normal" title="Tixati v2.88">/' \
+	's/<application type="normal">/<application type="normal" title="Tixati v2.89">/' \
 	/etc/xdg/openbox/rc.xml
 
 # This healthcheck will kill tixati if the tunnel is not running, which will force a restart of the container
