@@ -1,9 +1,9 @@
 #!/bin/bash
 
-packages=(plexinc/pms-docker:latest dperson/openvpn-client:latest appleman999/tixati:latest)
+packages=$(/usr/bin/docker image ls --all | /usr/bin/tail -n +2 | /usr/bin/awk '{ print $1 }')
 
 for package in ${packages[*]}; do
-  docker_hub=$(~/tixati/monitor/digest-v2.sh ${package} \
+  docker_hub=$(~/tixati/monitor/digest-v2.sh ${package}:latest \
              | grep "etag" | awk '{ print $2 }' | tr -d \" | tr -d '\r')
   local_image=$(/usr/bin/docker image inspect ${package} --format '{{json .RepoDigests}}' \
              | jq . | grep "@" | awk -F@ '{print $2}' | tr -d \")
