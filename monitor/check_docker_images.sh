@@ -3,6 +3,9 @@
 packages=$(/usr/bin/docker image ls --all | /usr/bin/tail -n +2 | /usr/bin/awk '{ print $1 }')
 
 for package in ${packages[*]}; do
+  if [ "${package}" == "<none>" ]; then
+    continue
+  fi
   docker_hub=$(~/tixati/monitor/digest-v2.sh ${package}:latest \
              | grep "etag" | awk '{ print $2 }' | tr -d \" | tr -d '\r')
   local_image=$(/usr/bin/docker image inspect ${package} --format '{{json .RepoDigests}}' \
