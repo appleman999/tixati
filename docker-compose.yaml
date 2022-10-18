@@ -44,7 +44,7 @@ services:
     restart: always
 
   tixati:
-    image: appleman999/tixati:latest
+    image: appleman999/tixati
     container_name: tixati
     depends_on:
       - vpn

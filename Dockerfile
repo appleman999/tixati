@@ -15,12 +15,13 @@ RUN add-pkg xterm \
 	libdbus-glib-1-2 \
 	libgtk2.0-0 \
 	apt-utils \
-	gconf2 && \
+	gconf2 \
+	ca-certificates && \
+update-ca-certificates && \
 curl \
 	--silent \
 	--output /var/tmp/tixati.deb https://download2.tixati.com/download/tixati_3.12-1_amd64.deb && \
-export TERM=vt100 && \
-add-pkg /var/tmp/tixati.deb && \
+export TERM=vt100 && add-pkg /var/tmp/tixati.deb && \
 sed-patch \
 	's/<application type="normal">/<application type="normal" title="Tixati v3.12">/' \
 	/etc/xdg/openbox/rc.xml
