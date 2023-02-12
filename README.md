@@ -1,5 +1,5 @@
 # tixati
-Tixati version 3.14-1 image based onjlesage/baseimage-gui
+Tixati version 3.16-1 image based onjlesage/baseimage-gui
 
 ## Create docker image
 ```bash
