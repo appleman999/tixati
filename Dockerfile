@@ -20,10 +20,10 @@ RUN add-pkg xterm \
 update-ca-certificates && \
 curl \
 	--silent \
-	--output /var/tmp/tixati.deb https://download2.tixati.com/download/tixati_3.17-1_amd64.deb && \
+	--output /var/tmp/tixati.deb https://download2.tixati.com/download/tixati_3.18-1_amd64.deb && \
 export TERM=vt100 && add-pkg /var/tmp/tixati.deb && \
 sed-patch \
-	's/<application type="normal">/<application type="normal" title="Tixati v3.17">/' \
+	's/<application type="normal">/<application type="normal" title="Tixati v3.18">/' \
 	/etc/xdg/openbox/rc.xml
 
 # This healthcheck will kill tixati if the tunnel is not running, which will force a restart of the container
