@@ -13,7 +13,7 @@ RUN add-pkg xterm \
 	curl \
 	libdbus-1-dev \
 	libdbus-glib-1-2 \
-	libgtk2.0-0 \
+	libgtk-3-0 \
 	apt-utils \
 	gconf2 \
 	ca-certificates && \
