@@ -51,8 +51,7 @@ services:
     restart: always
     environment:
       TZ: America/New_York
-      DISPLAY_WIDTH: 1500
-      DISPLAY_HEIGHT: 1000
+      DARK_MODE: enabled
     volumes:
       - /pvr/tixati/config:/config
       - /pvr/plex/data:/plex
