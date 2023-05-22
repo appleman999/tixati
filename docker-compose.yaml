@@ -25,6 +25,7 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+    cpu_shares: 1024
 
   vpn:
     image: dperson/openvpn-client
@@ -42,19 +43,24 @@ services:
     devices:
       - /dev/net/tun
     restart: always
+    cpu_shares: 512
 
   tixati:
     image: appleman999/tixati
     container_name: tixati
     depends_on:
-      - vpn
+      vpn:
+        condition: service_healthy
     restart: always
     environment:
       TZ: America/New_York
+      DISPLAY_WIDTH: 1500
+      DISPLAY_HEIGHT: 1000
       DARK_MODE: enabled
     volumes:
       - /pvr/tixati/config:/config
       - /pvr/plex/data:/plex
       - /pvr/tixati/torrents:/torrents
     network_mode: service:vpn
+    cpu_shares: 512
 
