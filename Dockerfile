@@ -7,6 +7,7 @@ COPY startapp.sh /startapp.sh
 RUN add-pkg xterm \
 	curl \
 	libgtk-3-0 \
+	iproute2 \
 	ca-certificates \
 	xdg-utils && \
 update-ca-certificates && \
