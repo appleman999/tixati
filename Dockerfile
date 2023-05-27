@@ -19,5 +19,5 @@ set-cont-env APP_NAME "tixati" && \
 set-cont-env APP_VERSION "3.18"
 
 # This healthcheck will kill tixati if the tunnel is not running, which will force a restart of the container
-HEALTHCHECK CMD /usr/sbin/ip addr show dev tun0 || /usr/bin/tixati -closenow
+HEALTHCHECK CMD /usr/sbin/ip addr show dev tun0 || bash -c 'kill -s 15 -1 && (sleep 10; kill -s 9 -1)'
 
