@@ -16,7 +16,10 @@ update-ca-certificates && \
 	--output /var/tmp/tixati.deb https://download2.tixati.com/download/tixati_3.19-1_amd64.deb && \
 export TERM=vt100 && add-pkg /var/tmp/tixati.deb && \
 set-cont-env APP_NAME "tixati" && \
-set-cont-env APP_VERSION "3.19"
+set-cont-env APP_VERSION "3.19" && \
+mkdir "/etc/openbox" && \
+echo "<Type>normal</Type>" >> "/etc/openbox/main-window-selection.xml" && \
+echo "<Title>Tixati v3.19</Title>" >> "/etc/openbox/main-window-selection.xml"
 
 # This healthcheck will kill tixati if the tunnel is not running, which will force a restart of the container
 HEALTHCHECK CMD /usr/sbin/ip addr show dev tun0 || bash -c 'kill -s 15 -1 && (sleep 10; kill -s 9 -1)'
