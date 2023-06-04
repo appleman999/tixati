@@ -1,6 +1,10 @@
 FROM jlesage/baseimage-gui:ubuntu-22.04-v4
 
-ENV APP_NAME=tixati APP_VERSION=3.19
+RUN \
+    add-pkg locales && \
+    sed-patch 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    locale-gen
+ENV LANG=en_US.UTF-8 APP_NAME=tixati APP_VERSION=3.19
 
 COPY startapp.sh /startapp.sh
 
