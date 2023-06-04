@@ -7,3 +7,6 @@ Updated to use base image for Ubuntu 22.04
 $ docker build --tag appleman999/tixati .
 ```
 
+## Issues
+Please submit any issues to https://github.com/appleman999/tixati/issues and I will attempt to address.
+
