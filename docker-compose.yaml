@@ -8,6 +8,10 @@ services:
       - /pvr/plex/config:/config
       - /dev/shm/transcode:/transcode
       - /pvr/plex/data:/data
+      - /usr/share/fonts:/usr/share/fonts:ro
+      - /usr/share/fontconfig:/usr/share/fontconfig:ro
+      - /var/cache/fontconfig:/var/cache/fontconfig:ro
+      - /etc/fonts:/etc/fonts:ro
     network_mode: host
     restart: always
     environment:
@@ -31,8 +35,10 @@ services:
     image: dperson/openvpn-client
     container_name: vpn
     ports:
-      - 5800:5800
-      - 5900:5900
+      - "5800:5800"
+      - "5900:5900"
+      - "13603:13603/tcp"
+      - "13603:13603/udp"
     volumes:
       - /pvr/openvpn:/vpn
     environment:
@@ -46,7 +52,7 @@ services:
     cpu_shares: 512
 
   tixati:
-    image: appleman999/tixati
+    image: jlesage/tixati
     container_name: tixati
     depends_on:
       vpn:
@@ -54,8 +60,6 @@ services:
     restart: always
     environment:
       TZ: America/New_York
-      DISPLAY_WIDTH: 1500
-      DISPLAY_HEIGHT: 1000
       DARK_MODE: enabled
     volumes:
       - /pvr/tixati/config:/config
